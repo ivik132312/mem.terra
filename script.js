@@ -8,17 +8,19 @@ const playerAva=new Image()
 playerAva.src='cola.png'
 playerAva.width=50
 playerAva.height=50
-let player = { x: 50, y: 50, width: 50, height: 50, speed: 5, img:playerAva};
+let player = { x: 50, y: 50, width: 50, height: 50, speed: 7, img:playerAva};
 let vrag = { x: 650, y: 50, width: 80, height: 80, speed: 15, img:vragAva};
+let vragys = 0
+let vragxs = 0
 function update() {
     if (keys['KeyW']) player.y -= player.speed;
     if (keys['KeyS']) player.y += player.speed;
     if (keys['KeyA']) player.x -= player.speed;
     if (keys['KeyD']) player.x += player.speed;
-    if (keys['KeyI']) vrag.y -= vrag.speed;
-    if (keys['KeyK']) vrag.y += vrag.speed;
-    if (keys['KeyJ']) vrag.x -= vrag.speed;
-    if (keys['KeyL']) vrag.x += vrag.speed;
+    // if (keys['KeyI']) vrag.y -= vrag.speed;
+    // if (keys['KeyK']) vrag.y += vrag.speed;
+    // if (keys['KeyJ']) vrag.x -= vrag.speed;
+    // if (keys['KeyL']) vrag.x += vrag.speed;
 
     // Границы поля
     if (player.x < 0) player.x = 0;
@@ -29,6 +31,9 @@ function update() {
     if (vrag.x + vrag.width > canvas.width) vrag.x = canvas.width - vrag.width;
     if (vrag.y < 0) vrag.y = 0;
     if (vrag.y + vrag.height > canvas.height) vrag.y = canvas.height - vrag.height;
+    checkPosition(player.x,player.y,vrag.x,vrag.y)
+    vrag.y+=vragys
+    vrag.x+=vragxs
 }
 // Рисование игрока 
 function draw() { 
@@ -40,7 +45,7 @@ function draw() {
         player.y=50
         vrag.x=650
         vrag.y=50
-        alert('УДАР!')
+        ctx.fillText('УДАР!',50,50)
     }
 }
 // Основной игровой цикл 
@@ -64,4 +69,21 @@ function isCollision(player,vrag){
         player.y<vrag.y+vrag.height&&
         player.y+player.height>vrag.y
     )
+}
+function checkPosition(playerx,playery,vragx,vragy){
+    if(player.y<vrag.y){
+        vragys=-3.5
+    }else if(player.y>vrag.y){
+        vragys=3.5
+    }else{
+        vragys=0
+    }
+    if(player.x<vrag.x){
+        vragxs=-3.5
+    }else if(player.x>vrag.x){
+        vragxs=3.5
+    }else{
+        vragxs=0
+    }
+
 }

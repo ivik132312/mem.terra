@@ -5,13 +5,14 @@ const vragAva=new Image()
 vragAva.src='i.webp'
 
 const playerAva=new Image()
-playerAva.src='cola.png'
+playerAva.src='Frame 1 (1).png'
 playerAva.width=50
 playerAva.height=50
 let player = { x: 50, y: 50, width: 50, height: 50, speed: 7, img:playerAva};
 let vrag = { x: 650, y: 50, width: 80, height: 80, speed: 15, img:vragAva};
 let vragys = 0
 let vragxs = 0
+let gameon = 1
 function update() {
     if (keys['KeyW']) player.y -= player.speed;
     if (keys['KeyS']) player.y += player.speed;
@@ -45,12 +46,20 @@ function draw() {
         player.y=50
         vrag.x=650
         vrag.y=50
-        ctx.fillText('УДАР!',50,50)
+        ctx.font='50px Verdana'
+        ctx.fillText('УДАР!',350,300)
+        gameon=0
+        setTimeout(() => {
+            gameon=1
+        }, 2000);
     }
 }
 // Основной игровой цикл 
 function gameLoop() { 
-    update(); draw(); requestAnimationFrame(gameLoop); 
+    if(gameon===1){
+        update();draw();
+    }
+    requestAnimationFrame(gameLoop); 
 }
 // Управление клавишами 
 let keys = {}; 

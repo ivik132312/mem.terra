@@ -2,14 +2,19 @@ const canvas = document.getElementById('game')
 const ctx = canvas.getContext('2d')
 
 const vragAva=new Image()
-vragAva.src='i.webp'
+vragAva.src='skins/v.vizer.webp'
 
 const playerAva=new Image()
-playerAva.src='Frame 1 (1).png'
+playerAva.src='skins/p.kloun.png'
 playerAva.width=50
 playerAva.height=50
-let player = { x: 50, y: 50, width: 50, height: 50, speed: 7, img:playerAva};
-let vrag = { x: 650, y: 50, width: 80, height: 80, speed: 15, img:vragAva};
+
+const gemAva=new Image()
+gemAva.src='skins/g.govn.png'
+
+let gem={ x: getRandomArbitrary(20, 780), y: getRandomArbitrary(20, 580), width: 30, height: 40, speed: 6, img:gemAva}
+let player = { x: 50, y: 50, width: 50, height: 50, speed: 6, img:playerAva};
+let vrag = { x: 650, y: 50, width: 80, height: 80, speed: 20, img:vragAva};
 let vragys = 0
 let vragxs = 0
 let gameon = 1
@@ -40,12 +45,15 @@ function update() {
 function draw() { 
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
     ctx.drawImage(player.img, player.x, player.y, player.width, player.height)
+    ctx.drawImage(gem.img,  gem.x, gem.y, gem.width, gem.height)
     ctx.drawImage(vrag.img,  vrag.x, vrag.y, vrag.width, vrag.height)
     if(isCollision(player,vrag)){
         player.x=50
         player.y=50
         vrag.x=650
         vrag.y=50
+        gem.x=getRandomArbitrary(20, 780)
+        gem.y=getRandomArbitrary(20, 580)
         ctx.font='50px Verdana'
         ctx.fillText('УДАР!',350,300)
         gameon=0
@@ -53,6 +61,21 @@ function draw() {
             gameon=1
         }, 2000);
     }
+    if(isCollision(player,gem)){
+        player.x=50
+        player.y=50
+        gem.x=getRandomArbitrary(20, 780)
+        gem.y=getRandomArbitrary(20, 580)
+        vrag.x=650
+        vrag.y=50
+        ctx.font='50px Verdana'
+        ctx.fillText('УРА!',350,300)
+        gameon=0
+        setTimeout(() => {
+            gameon=1
+        }, 2000);
+    }
+
 }
 // Основной игровой цикл 
 function gameLoop() { 
@@ -95,4 +118,46 @@ function checkPosition(playerx,playery,vragx,vragy){
         vragxs=0
     }
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
 }

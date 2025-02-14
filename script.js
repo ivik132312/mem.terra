@@ -2,10 +2,10 @@ const canvas = document.getElementById('game')
 const ctx = canvas.getContext('2d')
 
 const vragAva=new Image()
-vragAva.src='skins/v.vizer.webp'
+vragAva.src='skins/v.lizogub.png'
 
 const playerAva=new Image()
-playerAva.src='skins/p.kloun.png'
+playerAva.src='skins/p.ishowspeed.png'
 playerAva.width=50
 playerAva.height=50
 
@@ -96,10 +96,10 @@ playerAva.onload=function(){
 }
 function isCollision(player,vrag){
     return (
-        player.x<vrag.x+vrag.width&&
-        player.x+player.width>vrag.x&&
-        player.y<vrag.y+vrag.height&&
-        player.y+player.height>vrag.y
+        player.x<vrag.x+vrag.width-20&&
+        player.x+player.width-20>vrag.x&&
+        player.y<vrag.y+vrag.height-20&&
+        player.y+player.height-20>vrag.y
     )
 }
 function checkPosition(playerx,playery,vragx,vragy){
